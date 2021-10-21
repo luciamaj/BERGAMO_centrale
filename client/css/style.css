@@ -1,0 +1,45 @@
+html {
+    background-color: #000;
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+body {
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+canvas { 
+    position: absolute; 
+    z-index: 2;
+}
+
+#gamecontainer {
+    width: 1920px !important;
+    height: 1920px !important;
+    position: absolute;
+    margin: 0 auto;
+    z-index: 1;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#myVideo {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    height: 1920px !important;
+    width: 1920px !important;
+}
+
+canvas {
+    /* border: 2px solid red; */
+    /* background-image: url('../assets/background/mappa_aggiornata.png'); */
+    /* background-image: url('../assets/background/numerazione.svg'); */
+    background-size: contain;
+    background-position-y: center;
+    background-position-x: center;
+    background-repeat: no-repeat;
+}

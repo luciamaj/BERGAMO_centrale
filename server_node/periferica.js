@@ -5,6 +5,7 @@ global.__basedir = __dirname;
 const os = require('os');
 const ioclient = require('socket.io-client');
 const commands = require('./modules/commands.js');
+const { setPerifericheDebug, setCanvasDebug, setCanvasDataDebug, getPerifericheDebug, getCanvasDebug, getCanvasDataDebug } = require('./modules/helpers.js');
 const fs = require('fs');
 const ini = require('ini');
 const configIni = ini.parse(fs.readFileSync(__basedir + "/config.ini", 'utf-8'));
@@ -16,10 +17,14 @@ var cors = require('cors');
 const passwordProtected = require('express-password-protect');
 
 const config = {
-    username: "fellini",
-    password: "Fellini@202021",
+    username: "bergamo",
+    password: "900",
     maxAge: 120000
 }
+
+let periferiche = [];
+let canvas = undefined;
+let canvasData = undefined;
 
 // EXPRESS
 
@@ -81,7 +86,6 @@ async function getLastCommit() {
 let centrale = ioclient(configIni.connection.centrale);
 let port = configIni.connection.io;
 let clientSocket = null;
-let tsunamiSocket = null;
 
 //INFO MACHINE
 const machineName = os.hostname();
@@ -140,11 +144,8 @@ centrale.on('cmd', async function (data) {
     console.log(data, `ho ricevuto il cmd from central`);
     fsUtilites.writeLogFile('ho ricevuto il cmd from central ' + data);
 
-    if(data == 'tsunamiStart') {
-        sendTsunamiSocket();
-    } else {
-        await commands.executeCmd(data);
-    }
+
+    await commands.executeCmd(data);
 
     refresh();
 }.bind(this));
@@ -185,11 +186,105 @@ io.on('connection', function (socket) {
         }
     }.bind(this));
 
-    socket.on('inside', function () {
+    socket.on('periferica', function (data) {
+        console.log(`Si è connessa la periferica ${data.nome} (${socket.id})`);
+        socket.name = data.nome;
+        socket.color = data.nome;
+
+        if (!periferiche.includes(socket) && data.nome != undefined) {
+            periferiche.push(socket);
+
+            let periDebug = getPerifericheDebug();
+            periDebug.push(data.nome);
+            setPerifericheDebug(periDebug);
+        }
+
+        updateCanvas();
+        reloadCanvas();
+    });
+
+    socket.on('disconnect', function () {
+        if (socket === canvas) {
+            console.log(`Dashboard ${socket.id} disconnessa`);
+            canvas = undefined;
+            setCanvasDebug(null);
+        } else if (periferiche.includes(socket)) {
+            console.log(`Periferica ${socket.id} disconnessa`);
+            let i = periferiche.indexOf(socket);
+            periferiche.splice(i, 1);
+
+            let periDebug = getPerifericheDebug();
+            periDebug.splice(i, 1);
+            setPerifericheDebug(periDebug);
+
+            updateCanvas();
+        } else {
+            console.log(`Disconnesso sconosciuto: ${socket.id}`);
+        }
+    });
+
+    socket.on('canvas', function () {
+        // REGIA METHODS
         fsUtilites.writeLogFile('sono inside');
         isAppOffline = false;
-        tsunamiSocket = socket;
         emitPeriferica();
+
+        // BERGAMO METHODS
+        console.log(`È una canvas ${socket.id}`);
+        canvas = socket;
+        setCanvasDebug(true);
+        canvas.emit('canvas-onload', canvasData)
+        updateCanvas();
+    });
+
+    socket.on('data', function (data) {
+        if (data) { 
+            canvasData = data 
+        };
+    });
+
+    socket.on('direct', function (data) {
+        console.log('direct', data);
+        const { socketId, url } = data;
+        let socketPeriferica = periferiche.find(s => s.id === socketId);
+        if (socketPeriferica) {socketPeriferica.emit('url-dashboard', url)};
+    })
+
+    socket.on('reset', function (data) {
+        console.log('send reset');
+        const { socketId } = data;
+        let socketPeriferica = periferiche.find(s => s.id === socketId);
+        if (socketPeriferica) {socketPeriferica.emit('reset')};
+    })
+
+    socket.on('exited', function (data) {
+        const { socketId } = data;
+        let socketPeriferica = periferiche.find(s => s.id === socketId);
+        if (socketPeriferica) {socketPeriferica.emit('exit-dashboard')};
+    })
+
+    socket.on('logo', function(data) {
+        console.log(data);
+        if (canvas) canvas.emit('logo-server', {'canvas': canvasData, 'data': data});
+    });
+
+    socket.on('approfondimento', function(data) {
+        console.log(data);
+        if (canvas) canvas.emit('approfondimento-server', {'canvas': canvasData, 'data': data});
+    });
+
+    socket.on('mouseClick', function(data) {
+        console.log('MOUSECLICK', data);
+        if (canvas) canvas.emit('mouseClick-server', {'canvas': canvasData, 'data': data});
+    });
+
+    socket.on('showME', function(data) {
+        console.log('showME', data);
+        if (canvas) canvas.emit('showME-server', {'canvas': canvasData, 'data': data});
+    });
+
+    socket.on('inside', function () {
+
     }.bind(this));
 
     socket.on('disconnect', function () {
@@ -197,7 +292,7 @@ io.on('connection', function (socket) {
         // TODO: Oltre a fare solo l'update di quando mi sconnetto devo reinviare le mie info con le segnalazioni
         console.log(`${socket.id} disconnected`);
 
-        if (socket == clientSocket || socket == tsunamiSocket) {
+        if (socket == clientSocket) {
             fsUtilites.writeLogFile('disconnessa applicazione ' + baseAppUrl + getAppPage());
             clientSocket = undefined;
             isAppOffline = true;
@@ -205,6 +300,29 @@ io.on('connection', function (socket) {
         }
     }.bind(this));
 });
+
+function updateCanvas() {
+    if (canvas) {
+        console.log('i should be updating', periferiche.map(s => s.name));
+        console.log('i should be updating', periferiche.map(s => s.id));
+
+        canvas.emit('dati-canvas', {
+            periferiche: periferiche.map(s => s.id),
+            names: periferiche.map(s => s.name),
+            colors: periferiche.map(s => s.color)
+        });
+    } else {
+        console.log('canvas not connected');
+    }
+}
+
+function reloadCanvas() {
+    if (canvas) {
+        canvas.emit('reload-canvas');
+    } else {
+        console.log('canvas not connected');
+    }
+}
 
 function sendChangePage(url) {
     // FORM FULL URL
@@ -220,15 +338,6 @@ function sendChangePage(url) {
 
     if (clientSocket) {
         configIni.app.prepend ? clientSocket.emit('loadPage', urlComplete + configIni.app.prepend) : clientSocket.emit('loadPage', url); 
-    }
-}
-
-function sendTsunamiSocket() {
-    if (tsunamiSocket) {
-        fsUtilites.writeLogFile("invio tsunami start a client");
-        tsunamiSocket.emit("tsunamiStart");
-    } else {
-        console.log("something went wrong tsunami");
     }
 }
 

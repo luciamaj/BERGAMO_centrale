@@ -3,8 +3,10 @@ const fs = require('fs');
 const ini = require('ini');
 const configIni = ini.parse(fs.readFileSync(__basedir + "/config.ini", 'utf-8'));
 const commands = require(__basedir + "/modules/commands.js");
+const { getPerifericheDebug, getCanvasDebug } = require(__basedir + "/modules/helpers.js");
 
-router.get('/', function(request,response) {
+
+router.post('/', function(request,response) {
   let backupConfig = "null";
 
   try { 
@@ -14,7 +16,10 @@ router.get('/', function(request,response) {
       fsUtilites.writeLogFile(err);
   }
 
-  response.render(configIni.app.adminPath + '\\views\\home.mustache', {info: configIni, backupConfig: backupConfig});
+  let peri = getPerifericheDebug();
+  let canvas = getCanvasDebug();
+
+  response.render(__basedir + '/views/home.mustache', {info: configIni, backupConfig: backupConfig, periferiche: peri, canvas: canvas });
 });
 
 router.get('/service/shut-down', async function(request,response) {
