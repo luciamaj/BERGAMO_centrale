@@ -3,7 +3,7 @@ const fs = require('fs');
 const ini = require('ini');
 const configIni = ini.parse(fs.readFileSync(__basedir + "/config.ini", 'utf-8'));
 const commands = require(__basedir + "/modules/commands.js");
-const { getPerifericheDebug, getCanvasDebug } = require(__basedir + "/modules/helpers.js");
+const { getPerifericheDebug, getCanvasDebug, getJoystickDebug } = require(__basedir + "/modules/helpers.js");
 
 
 router.post('/', function(request,response) {
@@ -18,8 +18,9 @@ router.post('/', function(request,response) {
 
   let peri = getPerifericheDebug();
   let canvas = getCanvasDebug();
+  let joy = getJoystickDebug();
 
-  response.render(__basedir + '/views/home.mustache', {info: configIni, backupConfig: backupConfig, periferiche: peri, canvas: canvas });
+  response.render(__basedir + '/views/home.mustache', {info: configIni, backupConfig: backupConfig, periferiche: peri, canvas: canvas, joysticks: joy });
 });
 
 router.get('/service/shut-down', async function(request,response) {

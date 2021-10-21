@@ -51,7 +51,6 @@ function update() {
     console.log('PLAYERS ON CANVAS', playersOnCanvas)
 
     let { periferiche } = data;
-    let { names } = data;
     let { colors } = data;
 
     console.log("THE COLORS", colors);

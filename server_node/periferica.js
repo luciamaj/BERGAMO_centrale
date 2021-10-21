@@ -5,7 +5,7 @@ global.__basedir = __dirname;
 const os = require('os');
 const ioclient = require('socket.io-client');
 const commands = require('./modules/commands.js');
-const { setPerifericheDebug, setCanvasDebug, setCanvasDataDebug, getPerifericheDebug, getCanvasDebug, getCanvasDataDebug } = require('./modules/helpers.js');
+const { setPerifericheDebug, setCanvasDebug, setJoystickDebug, getPerifericheDebug, getJoystickDebug, getCanvasDataDebug } = require('./modules/helpers.js');
 const fs = require('fs');
 const ini = require('ini');
 const configIni = ini.parse(fs.readFileSync(__basedir + "/config.ini", 'utf-8'));
@@ -221,6 +221,10 @@ io.on('connection', function (socket) {
         } else {
             console.log(`Disconnesso sconosciuto: ${socket.id}`);
         }
+    });
+
+    socket.on('joystick', function (data) {
+        setJoystickDebug(data);
     });
 
     socket.on('canvas', function () {

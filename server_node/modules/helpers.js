@@ -1,6 +1,6 @@
 var _perifericheDebug = [];
 var _canvasDebug = false;
-var _canvasDataDebug = null;
+var _joyestickDebug = null;
 
 function setPerifericheDebug(array) {
     _perifericheDebug = array;
@@ -10,8 +10,8 @@ function setCanvasDebug(data) {
     _canvasDebug = data;
 }
 
-function setCanvasDataDebug(data) {
-    _canvasDataDebug = data;
+function setJoystickDebug(data) {
+    _joyestickDebug = data;
 }
 
 function getPerifericheDebug() {
@@ -22,14 +22,14 @@ function getCanvasDebug() {
     return _canvasDebug;
 }
 
-function getCanvasDataDebug() {
-    return _canvasDataDebug;
+function getJoystickDebug() {
+    return _joyestickDebug;
 }
 
 exports.setPerifericheDebug = setPerifericheDebug;
 exports.setCanvasDebug = setCanvasDebug;
-exports.setCanvasDataDebug = setCanvasDataDebug;
+exports.setJoystickDebug = setJoystickDebug;
 
 exports.getPerifericheDebug = getPerifericheDebug;
 exports.getCanvasDebug = getCanvasDebug;
-exports.getCanvasDataDebug = getCanvasDataDebug;
+exports.getJoystickDebug = getJoystickDebug;

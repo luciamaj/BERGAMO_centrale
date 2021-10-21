@@ -4,8 +4,8 @@ var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 238, baseY: 
 
 var hasGP = false;
 var repGP;
-var g1removed = true;
 let treshJoystick = 0.3;
+let sendedError = false;
 
 function canGame() {
     return "getGamepads" in navigator;
@@ -95,5 +95,17 @@ function reportOnGamepad() {
   
       joysticks['purple'].x = applyDeadzone(gamepad2.axes[4], treshJoystick);
       joysticks['purple'].y = - applyDeadzone(gamepad2.axes[5], treshJoystick);
+    }
+
+    if(gamepad1 == null || gamepad2 == null) {
+      sendedError = true;
+      let report1 = gamepad1 ? true : false;
+      let report2 = gamepad2 ? true : false;
+      socket.emit('joystick', {'j1': report1, 'j2': report2});
+    } else {
+      if (sendedError) {
+        socket.emit('joystick', {'j1': true, 'j2': true});
+        sendedError = false;
+      }
     }
 }
