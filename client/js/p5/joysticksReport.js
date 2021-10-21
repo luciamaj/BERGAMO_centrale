@@ -53,22 +53,14 @@ function reportOnGamepad() {
     let gamepad2;
     // First arduino
 
-    //if(navigator.getGamepads()[0].buttons[0].pressed == true) {
-      //  console.log(navigator.getGamepads()[0].buttons[0]);
-    //}
-
-    // if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
-    if(navigator.getGamepads()[0] != null) {
-      // if(navigator.getGamepads()[0].buttons.find(btn => btn.pressed === true)) {
-      //   gamepad1 = navigator.getGamepads()[1];
-      //   gamepad2 = navigator.getGamepads()[0];
-      // } else {
-      //   gamepad2 = navigator.getGamepads()[1];
-      //   gamepad1 = navigator.getGamepads()[0];
-      // }
-
-      gamepad1 = navigator.getGamepads()[0];
-      gamepad2 = navigator.getGamepads()[1];
+    if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
+      if(navigator.getGamepads()[0].buttons.find(btn => btn.pressed === true)) {
+        gamepad1 = navigator.getGamepads()[1];
+        gamepad2 = navigator.getGamepads()[0];
+      } else {
+        gamepad2 = navigator.getGamepads()[1];
+        gamepad1 = navigator.getGamepads()[0];
+      }
 
       if(gamepad1) {
         joysticks['azure'].x = applyDeadzone(gamepad1.axes[0], treshJoystick);   
