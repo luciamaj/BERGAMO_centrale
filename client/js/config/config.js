@@ -3,4 +3,5 @@ const configuration = {
     "isDebug": true,
     "velocity": 1.5,  // valore da 1 a 3, usare anche i decimalI
     "luce": true,
+    "serverUrl": "localhost:4000"
 }

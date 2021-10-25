@@ -1,5 +1,4 @@
-const url = window.location.origin;
-let socket = io.connect(url);
+let socket = io.connect(configuration.serverUrl);
 let data;
 var playersOnCanvas = [];
 
