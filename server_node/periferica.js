@@ -5,7 +5,6 @@ global.__basedir = __dirname;
 const os = require('os');
 const ioclient = require('socket.io-client');
 const commands = require('./modules/commands.js');
-const { setPerifericheDebug, setCanvasDebug, setJoystickDebug, getPerifericheDebug, getJoystickDebug, getCanvasDataDebug } = require('./modules/helpers.js');
 const fs = require('fs');
 const ini = require('ini');
 const configIni = ini.parse(fs.readFileSync(__basedir + "/config.ini", 'utf-8'));
@@ -162,10 +161,6 @@ io.on('connection', function (socket) {
 
         if (!periferiche.includes(socket) && data.nome != undefined) {
             periferiche.push(socket);
-
-            let periDebug = getPerifericheDebug();
-            periDebug.push(data.nome);
-            setPerifericheDebug(periDebug);
         }
 
         updateCanvas();
@@ -176,15 +171,10 @@ io.on('connection', function (socket) {
         if (socket === canvas) {
             console.log(`Dashboard ${socket.id} disconnessa`);
             canvas = undefined;
-            setCanvasDebug(null);
         } else if (periferiche.includes(socket)) {
             console.log(`Periferica ${socket.id} disconnessa`);
             let i = periferiche.indexOf(socket);
             periferiche.splice(i, 1);
-
-            let periDebug = getPerifericheDebug();
-            periDebug.splice(i, 1);
-            setPerifericheDebug(periDebug);
 
             updateCanvas();
         } else {
@@ -193,7 +183,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('joystick', function (data) {
-        setJoystickDebug(data);
+        console.log(data);
     });
 
     socket.on('canvas', function () {
@@ -205,7 +195,6 @@ io.on('connection', function (socket) {
         // BERGAMO METHODS
         console.log(`È una canvas ${socket.id}`);
         canvas = socket;
-        setCanvasDebug(true);
         canvas.emit('canvas-onload', canvasData)
         updateCanvas();
     });
