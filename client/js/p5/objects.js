@@ -198,7 +198,7 @@ function Omino(name, color, x, y, idleTime) {
   this.omino = createSprite(50, 50, 10, 10);
   this.omino.setCollider("circle", 0, 0, 6);
   this.omino.debug = true;
-  this.omino.visible = false;
+  this.omino.visible = configuration.isDebug ? true : false;
 
   // ANIMATIONS //
 
