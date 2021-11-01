@@ -162,7 +162,7 @@ function Omino(name, color, x, y, idleTime) {
   this.name = name;
   this.socketId = '';
   this.x = x;
-  this.y = 1920;
+  this.y = 1700;
   this.isInside = false;
   this.color = color;
   this.isMoving = false;

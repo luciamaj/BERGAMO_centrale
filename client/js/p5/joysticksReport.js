@@ -1,4 +1,4 @@
-var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 238, baseY: 1880}, "blue": {x: 0, y: 0, color:[73, 182, 117], baseX: 400, baseY: 1880}, "green": {x: 0, y: 0, color: [76, 235, 52], baseX: 600, baseY: 1880}, "orange": {x: 0, y: 0, color: [231, 24, 55], baseX: 800, baseY: 1880}, "red": {x: 0, y: 0, color: [231, 24, 55], baseX: 900, baseY: 1880}, "purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 1100, baseY: 1880}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1300, baseY: 1880}}
+var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 238, baseY: 1700}, "blue": {x: 0, y: 0, color:[73, 182, 117], baseX: 400, baseY: 1700}, "green": {x: 0, y: 0, color: [76, 235, 52], baseX: 600, baseY: 1700}, "orange": {x: 0, y: 0, color: [231, 24, 55], baseX: 800, baseY: 1700}, "red": {x: 0, y: 0, color: [231, 24, 55], baseX: 900, baseY: 1700}, "purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 1100, baseY: 1700}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1300, baseY: 1700}}
 
 if (configuration.isDebug) {
   var hasGP = false;
