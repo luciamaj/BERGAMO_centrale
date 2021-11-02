@@ -107,39 +107,44 @@ function draw() {
             console.log("THE border", border, joystick.x);
             if(border.type == "ovest") {
                 if(player.x > border["x1"] && joystick.x < 0) {
-                    joystick.y = 0;
                     joystick.x = 0;
                 } else {
                     console.log("sono qua", border["x1"], player.x);
                 }
     
-                if(player.x > border["x1"] && joystick.x < 0) {
-                    joystick.y = 0;
+                if(player.x > border["y1"] && joystick.x < 0) {
                     joystick.x = 0;
                 } else {
                     console.log("sono qua", border["y1"], player.x);
                 }
             } else if (border.type == "est") {
-                if(player.x > border["x1"] && joystick.x > 0) {
-                    joystick.y = 0;
+                if(player.x > border["x1"] && joystick.x >= 0) {
                     joystick.x = 0;
                 } 
     
                 if(player.x > border["y1"] && joystick.x >= 0) {
-                    joystick.y = 0;
                     joystick.x = 0;
+                }
+            } else if (border.type == "nord") {
+                console.log(joystick.y, border);
+
+                if(player.y > border["x1"] && joystick.y < 0) {
+                    joystick.y = 0;
+                }
+
+                if(player.y > border["y1"] && joystick.y < 0) {
+                    joystick.y = 0;
                 }
             } else if (border.type == "sud") {
-                if(player.y > border["x2"] && joystick.x < 0) {
+                console.log(joystick.y, border);
+
+                if(player.y > border["x1"] && joystick.y >= 0) {
                     joystick.y = 0;
-                    joystick.x = 0;
                 }
-    
-                if(player.y > border["y1"] && joystick.x < 0) {
+
+                if(player.y > border["y1"] && joystick.y >= 0) {
                     joystick.y = 0;
-                    joystick.x = 0;
                 }
-                  
             }
         }
 
