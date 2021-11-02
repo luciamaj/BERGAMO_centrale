@@ -389,6 +389,8 @@ function drawOmino(omino, posX, posY, oldX, oldY, treshFlip) {
   var rad = Math.atan2(deltaY, deltaX);
   var deg = rad * (180 / Math.PI);
 
+  
+
   if ((oldX >= 0 && oldX <= treshFlip) || (oldX <= 0 && oldX >= -treshFlip) && (oldY >= 0 && oldY <= treshFlip) || (oldY < 0 && oldY >= -treshFlip)) {
     //
   } else {

@@ -1,9 +1,9 @@
-var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 238, baseY: 1700}, "blue": {x: 0, y: 0, color:[73, 182, 117], baseX: 400, baseY: 1700}, "green": {x: 0, y: 0, color: [76, 235, 52], baseX: 600, baseY: 1700}, "orange": {x: 0, y: 0, color: [231, 24, 55], baseX: 800, baseY: 1700}, "red": {x: 0, y: 0, color: [231, 24, 55], baseX: 900, baseY: 1700}, "purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 1100, baseY: 1700}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1300, baseY: 1700}}
+var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 160, baseY: 1651}, "blue": {x: 0, y: 0, color:[73, 182, 117], baseX: 354, baseY: 1783}, "green": {x: 0, y: 0, color: [76, 235, 52], baseX: 504, baseY: 1840}, "orange": {x: 0, y: 0, color: [231, 24, 55], baseX: 1154, baseY: 1789}, "red": {x: 0, y: 0, color: [231, 24, 55], baseX: 1423, baseY: 1650}, "purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 1484, baseY: 1574}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1574, baseY: 1494}}
 
 if (configuration.isDebug) {
   var hasGP = false;
   var repGP;
-  let treshJoystick = 0.3;
+  let treshJoystick = 0.2;
   let sendedError = false;
 
   function canGame() {
@@ -70,30 +70,30 @@ if (configuration.isDebug) {
         gamepad2 = navigator.getGamepads()[1];
 
         if(gamepad1) {
-          joysticks['azure'].x = applyDeadzone(gamepad1.axes[0], treshJoystick);   
-          joysticks['azure'].y = - applyDeadzone(gamepad1.axes[1], treshJoystick);
+          joysticks['green'].x = applyDeadzone(gamepad1.axes[0], treshJoystick);   
+          joysticks['green'].y = applyDeadzone(gamepad1.axes[1], treshJoystick);
 
           joysticks['blue'].x = applyDeadzone(gamepad1.axes[2], treshJoystick);   
-          joysticks['blue'].y = - applyDeadzone(gamepad1.axes[3], treshJoystick);
+          joysticks['blue'].y = applyDeadzone(gamepad1.axes[3], treshJoystick);
 
-          joysticks['green'].x = applyDeadzone(gamepad1.axes[4], treshJoystick);   
-          joysticks['green'].y = - applyDeadzone(gamepad1.axes[5], treshJoystick);
+          joysticks['azure'].x = applyDeadzone(gamepad1.axes[4], treshJoystick);   
+          joysticks['azure'].y = applyDeadzone(gamepad1.axes[5], treshJoystick);
       
-          joysticks['orange'].x = applyDeadzone(gamepad1.axes[6], treshJoystick);  
-          joysticks['orange'].y = - applyDeadzone(gamepad1.axes[7], treshJoystick);  
+          joysticks['yellow'].x = applyDeadzone(gamepad1.axes[6], treshJoystick);  
+          joysticks['yellow'].y = applyDeadzone(gamepad1.axes[7], treshJoystick);  
         }
       }
     
       // Second arduino
       if(gamepad2) {
-        joysticks['red'].x = applyDeadzone(gamepad2.axes[0], treshJoystick);
-        joysticks['red'].y = - applyDeadzone(gamepad2.axes[1], treshJoystick);
+        joysticks['purple'].x = applyDeadzone(gamepad2.axes[0], treshJoystick);
+        joysticks['purple'].y = applyDeadzone(gamepad2.axes[1], treshJoystick);
     
-        joysticks['yellow'].x = applyDeadzone(gamepad2.axes[2], treshJoystick);
-        joysticks['yellow'].y = - applyDeadzone(gamepad2.axes[3], treshJoystick);
+        joysticks['red'].x = applyDeadzone(gamepad2.axes[2], treshJoystick);
+        joysticks['red'].y = applyDeadzone(gamepad2.axes[3], treshJoystick);
     
-        joysticks['purple'].x = applyDeadzone(gamepad2.axes[4], treshJoystick);
-        joysticks['purple'].y = - applyDeadzone(gamepad2.axes[5], treshJoystick);
+        joysticks['orange'].x = applyDeadzone(gamepad2.axes[4], treshJoystick);
+        joysticks['orange'].y = applyDeadzone(gamepad2.axes[5], treshJoystick);
       }
 
       if(gamepad1 == null || gamepad2 == null) {
@@ -111,7 +111,7 @@ if (configuration.isDebug) {
 } else {
   var hasGP = false;
   var repGP;
-  let treshJoystick = 0.3;
+  let treshJoystick = 0.5;
   let sendedError = false;
 
   function canGame() {
@@ -170,30 +170,30 @@ if (configuration.isDebug) {
         }
 
         if(gamepad1) {
-          joysticks['azure'].x = applyDeadzone(gamepad1.axes[0], treshJoystick);   
-          joysticks['azure'].y = - applyDeadzone(gamepad1.axes[1], treshJoystick);
+          joysticks['green'].x = applyDeadzone(gamepad1.axes[0], treshJoystick);   
+          joysticks['green'].y = applyDeadzone(gamepad1.axes[1], treshJoystick);
 
           joysticks['blue'].x = applyDeadzone(gamepad1.axes[2], treshJoystick);   
-          joysticks['blue'].y = - applyDeadzone(gamepad1.axes[3], treshJoystick);
+          joysticks['blue'].y = applyDeadzone(gamepad1.axes[3], treshJoystick);
 
-          joysticks['green'].x = applyDeadzone(gamepad1.axes[4], treshJoystick);   
-          joysticks['green'].y = - applyDeadzone(gamepad1.axes[5], treshJoystick);
+          joysticks['azure'].x = applyDeadzone(gamepad1.axes[4], treshJoystick);   
+          joysticks['azure'].y = applyDeadzone(gamepad1.axes[5], treshJoystick);
       
-          joysticks['orange'].x = applyDeadzone(gamepad1.axes[6], treshJoystick);  
-          joysticks['orange'].y = - applyDeadzone(gamepad1.axes[7], treshJoystick);  
+          joysticks['yellow'].x = applyDeadzone(gamepad1.axes[6], treshJoystick);  
+          joysticks['yellow'].y = applyDeadzone(gamepad1.axes[7], treshJoystick);  
         }
       }
     
       // Second arduino
       if(gamepad2) {
-        joysticks['red'].x = applyDeadzone(gamepad2.axes[0], treshJoystick);
-        joysticks['red'].y = - applyDeadzone(gamepad2.axes[1], treshJoystick);
+        joysticks['purple'].x = applyDeadzone(gamepad2.axes[0], treshJoystick);
+        joysticks['purple'].y = applyDeadzone(gamepad2.axes[1], treshJoystick);
     
-        joysticks['yellow'].x = applyDeadzone(gamepad2.axes[2], treshJoystick);
-        joysticks['yellow'].y = - applyDeadzone(gamepad2.axes[3], treshJoystick);
+        joysticks['red'].x = applyDeadzone(gamepad2.axes[2], treshJoystick);
+        joysticks['red'].y = applyDeadzone(gamepad2.axes[3], treshJoystick);
     
-        joysticks['purple'].x = applyDeadzone(gamepad2.axes[4], treshJoystick);
-        joysticks['purple'].y = - applyDeadzone(gamepad2.axes[5], treshJoystick);
+        joysticks['orange'].x = applyDeadzone(gamepad2.axes[4], treshJoystick);
+        joysticks['orange'].y = applyDeadzone(gamepad2.axes[5], treshJoystick);
       }
 
       if(gamepad1 == null || gamepad2 == null) {

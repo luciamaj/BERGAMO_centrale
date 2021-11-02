@@ -36,7 +36,7 @@ canvas {
 
 canvas {
     /* border: 2px solid red; */
-    /* background-image: url('../assets/background/mappa_aggiornata.png'); */
+    background-image: url('../assets/background/mappa_aggiornata-min.png');
     /* background-image: url('../assets/background/numerazione.svg'); */
     background-size: contain;
     background-position-y: center;
