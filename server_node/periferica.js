@@ -22,6 +22,7 @@ const config = {
 }
 
 let periferiche = [];
+let names = [];
 let canvas = undefined;
 let canvasData = undefined;
 
@@ -159,8 +160,12 @@ io.on('connection', function (socket) {
         socket.name = data.nome;
         socket.color = data.nome;
 
-        if (!periferiche.includes(socket) && data.nome != undefined) {
+        if (!names.includes(data.nome) && !periferiche.includes(socket) && data.nome && data.nome != 'none' && socket.id != '' && socket.id) {
             periferiche.push(socket);
+        }
+
+        if (!names.includes(data.nome)) {
+            names.push(data.nome);
         }
 
         updateCanvas();

@@ -27,7 +27,7 @@ socket.on('logo-server', function(data) {
 });
 
 socket.on('approfondimento-server', function(data) {
-    console.log("appr", data);
+    console.log("approfondimento-server", data);
 
     updateStatus(data, true, true);
 });
@@ -38,7 +38,7 @@ socket.on('mouseClick-server', function(data) {
 
 socket.on('showME-server', function(data) {
     console.log('showME-server', data);
-    //updateStatus(data, false, true);
+    updateStatus(data, false, true);
     playStartAnimation(data);
 });
 
@@ -53,39 +53,58 @@ function update() {
     let { colors } = data;
 
     console.log("THE COLORS", colors);
+    console.log("periferiche", periferiche);
 
     periferiche.map((p, i) => {
-        console.log('peri', p);
-        var playerToAdd = playersArray.find(player => player.name === colors[i]);
-        playerToAdd.socketId = p;
-        if(!(playersOnCanvas.includes(playerToAdd))) {
-            playersOnCanvas.push(playerToAdd);
+        if (p != '') {
+            console.log('peri', p);
+            var playerToAdd = playersArray.find(player => player.name == colors[i]);
+    
+            if (playerToAdd) {
+                console.log("playerToAdd", playerToAdd);
+    
+                playerToAdd.socketId = p;
+                if(!(playersOnCanvas.includes(playerToAdd))) {
+                    playersOnCanvas.push(playerToAdd);
+    
+                    playerToAdd.reloaded();
+                }
+            }
         }
     });
 }
 
 function playStartAnimation(data) {
-    let playerToChangeIndex = playersArray.findIndex(player => player.name === data.data.color);
-    let playerToChange = playersArray[playerToChangeIndex];
-    playerToChange.showMe = true;
-    playersArray[playerToChangeIndex] = playerToChange;
+    let playerToChangeIndex = playersArray.findIndex(player => player.name == data.data.color);
+	
+	if (playerToChangeIndex != -1) {
+        let playerToChange = playersArray[playerToChangeIndex];
+		playerToChange.showMe = true;
+        playersArray[playerToChangeIndex] = playerToChange;
+		playerToChange.resetPositions();
+	}
 }
 
 function updateStatus(data, isReading, isOnMap) {
-    let playerToChangeIndex = playersArray.findIndex(player => player.name === data.data.color);
-    let playerToChange = playersArray[playerToChangeIndex];
+    let playerToChangeIndex = playersArray.findIndex(player => player.name == data.data.color);
+    console.log("THE PLAYER TO CHANGE", playersArray, data, playerToChangeIndex);
+	
+	if (playerToChangeIndex != -1) {
+        let playerToChange = playersArray[playerToChangeIndex];
+		console.log("THE PLAYER TO CHANGE", "playerToChange", playerToChange, "data", data, "isReading", isReading, "isOnMap", isOnMap);
 
-    console.log("THE PLAYER TO CHANGE", playerToChange, data, isReading, isOnMap);
+		playerToChange.isReading = isReading;
+		playerToChange.isOnMap = isOnMap;
 
-    playerToChange.isReading = isReading;
-    playerToChange.isOnMap = isOnMap;
-
-    playersArray[playerToChangeIndex] = playerToChange;
+		playersArray[playerToChangeIndex] = playerToChange;
+	}
 }
 
 function updateTimer(data) { 
-    let playerToChangeIndex = playersArray.findIndex(player => player.name === data.data.color);
-    let playerToChange = playersArray[playerToChangeIndex];
-
-    playerToChange.startTimer();
+    let playerToChangeIndex = playersArray.findIndex(player => player.name == data.data.color);
+	
+	if (playerToChangeIndex != -1) {
+        let playerToChange = playersArray[playerToChangeIndex];
+		playerToChange.startTimer();
+	}
 }

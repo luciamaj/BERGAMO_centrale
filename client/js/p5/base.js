@@ -8,12 +8,13 @@ var playersArray = [];
 var oldStations = [];
 var newStations = [];
 const poly = [];
-var createPurpleStarImg = null;
 var gif_createImg;
 let w = 1920
 let h = 1920
 let playersGroup = null;
 let hotPointsGroup = null;
+
+let aloneImg;
 
 let squareDim = 1920;
 
@@ -23,6 +24,7 @@ let oldposY;
 let isDebug = configuration.isDebug;
 
 function preload() {
+
 }
 
 function setup() { 
@@ -34,38 +36,33 @@ function setup() {
     playersGroup = new Group();
     hotPointsGroup = new Group();
 
+    jsonHotpoints.forEach(hotpoint => {
+        hotPointsArray.push(new Hotpoint(hotpoint))
+    });
+
     Object.keys(joysticks).forEach(function(name) {
         let player = new Omino(name, color(...joysticks[name].color), joysticks[name].baseX, joysticks[name].baseY, configuration.idleTime);
         playersArray.push(player);
     });
-
-    // Object.keys(joysticks).forEach(function(name) {
-    //     let player = new Player(name, color(...joysticks[name].color), joysticks[name].baseX, joysticks[name].baseY, color('hsba(160, 100%, 50%, 0.5)'));
-    //     playersArray.push(player);
-    // });
-
-    jsonHotpoints.forEach(hotpoint => {
-        hotPointsArray.push(new Hotpoint(hotpoint))
-    });
 	
-	poly.push(createVector(471, 20));
-	poly.push(createVector(87, 91));
-    poly.push(createVector(92, 532));
-	poly.push(createVector(24, 828));
-	poly.push(createVector(123, 1207));
-	poly.push(createVector(34, 1630));
-	poly.push(createVector(214, 1839));
-	poly.push(createVector(543, 1920));
-	poly.push(createVector(1066, 1913));
-	poly.push(createVector(1310, 1751));
-	poly.push(createVector(1586, 1716));
-	poly.push(createVector(1666, 1437));
-	poly.push(createVector(1874, 1337));
-	poly.push(createVector(1903, 849));
-	poly.push(createVector(1857, 297));
-	poly.push(createVector(1689, 50));
-	poly.push(createVector(1321, 10));
-	poly.push(createVector(830, 60));
+	poly.push(createVector((471 + 0), (20 + 0)));
+	poly.push(createVector((87 + 10), (91 + 0)));
+    poly.push(createVector((92 + 10), ((532 + 0))));
+	poly.push(createVector((24 + 10), (828) + 0));
+	poly.push(createVector((123 + 10), (1207 + 0)));
+	poly.push(createVector((34 + 10), (1630 + 0)));
+	poly.push(createVector((214 + 10), (1839 - 10)));
+	poly.push(createVector((543 + 10), (1920 - 10)));
+	poly.push(createVector((1066 + 0), (1913 - 10)));
+	poly.push(createVector((1310 + 0), (1751 - 10)));
+	poly.push(createVector((1586 - 10), (1716 - 10)));
+	poly.push(createVector((1666 - 10), (1437 - 10)));
+	poly.push(createVector((1874 - 10), (1337 - 10)));
+	poly.push(createVector((1903 - 10), (849 - 10)));
+	poly.push(createVector((1857 - 10), (297 + 0)));
+	poly.push(createVector((1689 - 10), (50 + 0)));
+	poly.push(createVector((1321 - 10), (10 + 0)));
+	poly.push(createVector((830 - 10), (60 + 0)));
 }
 
 function draw() { 
@@ -127,13 +124,18 @@ function draw() {
         player.draw();
     }
 	
-	// stroke('red');
-    // strokeWeight(6);
+    if (configuration.points) {
+        stroke('red');
+        strokeWeight(6);
+    }
+
     beginShape();
     for (const { x, y } of poly)  vertex(x, y);
     endShape(CLOSE);
 
     drawSprites();
+    noFill();
+	noStroke();
 }
 
 // ENTRY METHODS

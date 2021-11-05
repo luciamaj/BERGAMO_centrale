@@ -19,7 +19,7 @@ canvas {
     height: 1920px !important;
     position: absolute;
     margin: 0 auto;
-    z-index: 1;
+    z-index: 2;
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -29,14 +29,14 @@ canvas {
     position: absolute;
     top: 0;
     bottom: 0;
-    z-index: 2;
+    z-index: 1;
     height: 1920px !important;
     width: 1920px !important;
 }
 
 canvas {
     /* border: 2px solid red; */
-    background-image: url('../assets/background/mappa_aggiornata-min.png');
+    /* background-image: url('../assets/background/2.jpg'); */
     /* background-image: url('../assets/background/numerazione.svg'); */
     background-size: contain;
     background-position-y: center;

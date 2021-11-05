@@ -7,36 +7,56 @@ function Hotpoint(jsonObj) {
   this.players = [];
 
   this.sprite = createSprite(this.info.left,  this.info.top,  this.info.radius, this.info.radius);
-  this.sprite.draw = _ => { 
-    ellipse(0, 0, this.info.radius, this.info.radius) 
-  }
+  this.sprite.scale = 0.5
   
   if (this.info.type == 'circle') {
+    this.sprite.draw = _ => { 
+      ellipse(0, 0, this.info.radius, this.info.radius) 
+    }
+
     this.sprite.setCollider("circle");
+  } else {
+    this.idle = loadImage(`assets/punti/luce_grande.png`);
+    this.sprite.addImage('idle', this.idle);
+  
+    this.sprite.changeAnimation('idle');
+    this.sprite.animation.playing = false;
+
+    this.sprite.setCollider("circle", 0, 0, 20);
   }
     
-  this.sprite.debug = true;
-  this.sprite.visible = true;
+  this.sprite.debug = false;
+  this.sprite.depth = 1;
+  this.sprite.visible = false;
     
   this.draw = function() {
+    noFill();
+    this.sprite.visible = false;
+
     let myStations = newStations.filter(station => { return station.hotpoint == this });
     myStations = myStations.sort((s1, s2)  => { return s1.timestamp > s2.timestamp ? 1 : -1;});
     let players = myStations.map(station => { return station.player });
 
     for (let i = 0; i < players.length; i++) {
-      if(configuration.luce) {
+      if(this.info.type == 'circle') {
         this.showRing();
+      } else {
+        this.sprite.visible = true;
       }
     }
 
-    if (this.info.type == 'circle') {
+    if (configuration.points) {
+      stroke('blue');
+      strokeWeight(2);
+      ellipse(this.info.left, this.info.top, this.info.radius);
+      textSize(32);
+      text(this.info.numero, this.info.left, this.info.top);
+      fill(0, 102, 153);
+      noStroke();
       noFill();
-      if (configuration.isDebug) { 
-        noStroke();
-      } else {
-        noStroke();
-      }
+    }
 
+    if (this.info.type == 'circle') {
       ellipse(this.info.left, this.info.top, this.info.radius);
     }
 
@@ -44,134 +64,27 @@ function Hotpoint(jsonObj) {
   }
 
   this.showRing = function() {
-    fill('white');
     ellipse(this.info.left, this.info.top, this.info.radius);
     this.sprite.shadowOffsetX = 3;
     this.sprite.shadowOffsetY = 3;
     this.sprite.shadowBlur = 2;
-    this.sprite.shadowColor = "white";
   }
 }
-
-/* function Player(name, color, x, y) {
-  this.radius = 18;
-  this.name = name;
-  this.socketId = '';
-  this.tails = 5;
-  this.x = x,
-  this.y = y,
-  this.isInside = false;
-  this.hit = null;
-  this.color = color;
-  let tail = [];
-  let tailLength = 70;
-  this.positions = null;
-
-  this.omino = createSprite(this.x, this.y, 10, 10);
-  this.omino.setCollider("circle", 0, 0, 10);
-  this.omino.debug = false;
-  this.omino.visible = false;
-  this.omino.color = this.color;
-
-  console.log(this.omino.color);
-
-  this.update = function(positions) {
-    this.positions = positions;
-
-    if (positions.x != 0 || positions.y != 0) {
-      if (this.isMoving != true) {
-        console.log("started moving");
-        this.isMoving = true;
-
-        // pause timer
-        if(this.isOnMap) this.stopTimer();
-      }
-    } else {
-      if (this.isMoving != false) {
-        console.log("stopped moving");
-        this.isMoving = false;
-
-        // restart timer
-        if(this.isOnMap) this.startTimer();
-      }
-    }
-    
-    if(!isInside(this)) {
-      this.x = this.x + (positions.x * configuration.velocity);
-      this.y = this.y + (positions.y * configuration.velocity);
-    } else {
-      this.x = this.x + (positions.x * configuration.velocity);
-      this.y = this.y + (positions.y * configuration.velocity);
-    }
-  }
-
-  this.draw = function() {
-    drawPlayer(this.omino, this.x, this.y, this.positions.x, this.positions.y, this.treshFlip);
-
-    for(let i = 0; i < tail.length - 1; i+=2){
-      let diam = map(i, 0, tail.length,0,this.radius);
-      let col =  map(i, 0, tail.length, 0, 100);
-      fill(255, 10, 10, col);
-      ellipse(tail[i], tail[i+1], diam, diam);
-    }
-
-    tail.push(this.omino.position.x, this.omino.position.y)
-    if(tail.length > tailLength * 2){
-      tail.splice(0, 2)
-    }
-
-    noStroke();
-
-    fill(255, 10, 10, 200);
-    ellipse(this.omino.position.x, this.omino.position.y, this.radius, this.radius);
-    noFill();
-  }
-
-  console.log("idletime", this.idleTime );
-  this.timer = new easytimer.Timer({target: { seconds: this.idleTime }});
-  this.timer.addEventListener('targetAchieved', e => {
-    console.log("timer ended");
-    this.resetPositions();
-  });
-
-  this.resetTimer = function() {
-    idleTime = 0;
-  }
-
-  this.startTimer = function() {
-    console.log('timer resetttato');
-    this.timer.reset();
-    this.timer.start();
-  }
-
-  this.stopTimer = function() {
-    console.log('timer stoppato');
-    this.timer.stop();
-  }
-
-  this.resetPositions = function() {
-    console.log("reset position", x, y);
-    socket.emit('reset', { socketId: this.socketId });
-    this.x = x;
-    this.y = y;
-  }
-} */
 
 function Omino(name, color, x, y, idleTime) {
   this.radius = 18;
   this.name = name;
   this.socketId = '';
   this.x = x;
-  this.y = 1700;
+  this.y = y;
   this.isInside = false;
   this.color = color;
   this.isMoving = false;
   this.timerResetted = false;
   this.positions = null;
   this.isReading = false;
-  this.isOnMap = configuration.isDebug ? true : false; 
+  this.isOnMap = configuration.isDebug ? true : false;
   this.idleTime = idleTime;
-  this.isOutsideCanvas = true;
   this.showMe = false;
 
   this.idle = null;
@@ -180,8 +93,8 @@ function Omino(name, color, x, y, idleTime) {
 
   // JOYSTICK TRESHOLDS //
 
-  this.tresh = 0.06;
-  this.treshFlip = 0.04;
+  this.tresh = 0;
+  this.treshFlip = 0.02;
 
   // TIMER //
 
@@ -190,6 +103,7 @@ function Omino(name, color, x, y, idleTime) {
   
   this.timer.addEventListener('targetAchieved', e => {
     console.log("timer ended");
+    this.reloaded();
     this.resetPositions();
   });
 
@@ -197,8 +111,10 @@ function Omino(name, color, x, y, idleTime) {
 
   this.omino = createSprite(50, 50, 10, 10);
   this.omino.setCollider("circle", 0, 0, 6);
-  this.omino.debug = true;
-  this.omino.visible = configuration.isDebug ? true : false;
+  this.omino.debug = false;
+  this.omino.visible = false;
+
+  this.omino.depth = 2;
 
   // ANIMATIONS //
 
@@ -219,14 +135,16 @@ function Omino(name, color, x, y, idleTime) {
   
   this.update = function(positions) {
     if (this.showMe == true) {
-      this.y -= 1;
-      if (!this.omino.visible) this.omino.visible = true;
-      this.omino.changeAnimation('walking');
+      //TODO: mettere a posto camminata
 
-      if (this.y <= y) {
-        this.omino.changeAnimation('idle');
-        this.showMe = false;
-      }
+      // this.y -= 1;
+      if (!this.omino.visible) this.omino.visible = true;
+      this.showMe = false;
+      // this.omino.changeAnimation('walking');
+
+      // if (this.y <= y) {
+      //   this.omino.changeAnimation('idle');
+      // }
 
       return;
     }
@@ -235,8 +153,8 @@ function Omino(name, color, x, y, idleTime) {
 
       if (positions.x != 0 || positions.y != 0) {
         // omino started
-        if (this.isMoving != true && !this.isReading) {
-          console.log("started moving");
+        if (this.isMoving != true && !this.isReading && this.isOnMap) {
+          console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
           this.omino.changeAnimation('walking');
           this.omino.animation.play();
           this.isMoving = true;
@@ -275,7 +193,6 @@ function Omino(name, color, x, y, idleTime) {
           } else if (this.omino.animation.getFrame() == 3) {
              this.omino.animation.nextFrame();
           }
-
           
           if (this.omino.getAnimationLabel() != "flagging") {
             this.omino.changeAnimation('idle');
@@ -288,7 +205,7 @@ function Omino(name, color, x, y, idleTime) {
       }
 
     // move omino sprite on map (non se sto leggendo (non solo sono dentro l'hotpoint, ma sono sulla scheda per la lettura))
-    if (!this.isReading) {
+    if (!this.isReading && this.isOnMap) {
       if ((positions.x > this.tresh || positions.x < -this.tresh) ||  (positions.y > this.tresh || positions.y < -this.tresh)) {
         // if inside hotpoint go slow
         if(isInside(this)) {
@@ -311,7 +228,7 @@ function Omino(name, color, x, y, idleTime) {
       socket.emit('direct', { socketId: this.socketId, url: hotpoint.url });
     }
 
-    if(exited) {
+    if(exited && this.isOnMap) {
       console.log("sono in exited");
       this.omino.changeAnimation('walking');
       socket.emit('exited', { socketId: this.socketId });
@@ -323,9 +240,7 @@ function Omino(name, color, x, y, idleTime) {
   }
 
   this.draw = function() {
-    if (this.isOnMap == true) {
-      drawOmino(this.omino, this.x, this.y, this.positions.x, this.positions.y, this.treshFlip);
-    }
+    drawOmino(this.omino, this.x, this.y, this.positions.x, this.positions.y, this.treshFlip);
   }
 
   this.resetTimer = function() {
@@ -343,16 +258,21 @@ function Omino(name, color, x, y, idleTime) {
     this.timer.stop();
   }
 
+  this.reloaded = () => {
+    console.log("sto inviando il reset", { socketId: this.socketId });
+    socket.emit('reset', { socketId: this.socketId });
+  }
+
   this.resetPositions = () => {
     this.omino.visible = false;
-    console.log("reset position", x, y);
-    socket.emit('reset', { socketId: this.socketId });
     this.omino.changeAnimation('idle');
     this.timerResetted = false;
-    this.isOutsideCanvas = true;
+    this.isOnMap = false;
+    this.isMoving = false;
+    this.isReading = false;
     this.omino.rotation = 0;
     this.x = x;
-    this.y = 1920;
+    this.y = y;
   }
 }
 
@@ -388,8 +308,6 @@ function drawOmino(omino, posX, posY, oldX, oldY, treshFlip) {
   var deltaY = posY - oldPosY;
   var rad = Math.atan2(deltaY, deltaX);
   var deg = rad * (180 / Math.PI);
-
-  
 
   if ((oldX >= 0 && oldX <= treshFlip) || (oldX <= 0 && oldX >= -treshFlip) && (oldY >= 0 && oldY <= treshFlip) || (oldY < 0 && oldY >= -treshFlip)) {
     //
