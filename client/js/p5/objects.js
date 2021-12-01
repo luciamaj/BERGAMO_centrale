@@ -122,7 +122,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.omino = createSprite(50, 50, 10, 10);
   this.omino.setCollider("circle", 0, 0, 6);
   this.omino.debug = false;
-  this.omino.visible = false;
+  this.omino.visible = true;
 
   this.omino.depth = 2;
 
@@ -144,7 +144,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.omino.animation.playing = false;
   
   this.update = function(positions) {
-    if (this.showMe == true) {
+    /*if (this.showMe == true) {
 
       // this.y -= 1;
       if (!this.omino.visible) this.omino.visible = true;
@@ -156,7 +156,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
       // }
 
       return;
-    }
+    }*/
 
     this.positions = positions;
 
