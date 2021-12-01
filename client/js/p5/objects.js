@@ -144,6 +144,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.omino.animation.playing = false;
   
   this.update = function(positions) {
+    // NOTE: animazioni iniziali
     /*if (this.showMe == true) {
 
       // this.y -= 1;
