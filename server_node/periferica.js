@@ -230,11 +230,11 @@ io.on('connection', function (socket) {
         if (socketPeriferica) {socketPeriferica.emit('exit-dashboard')};
     });
 
-    socket.on('first-movement', function (data) {
-        console.log('first-movement', data);
+    socket.on('first_movement', function (data) {
+        console.log('first_movement', data);
         const { socketId } = data;
         let socketPeriferica = periferiche.find(s => s.id === socketId);
-        if (socketPeriferica) {socketPeriferica.emit('first-movement')};
+        if (socketPeriferica) {socketPeriferica.emit('first_movement')};
     });
 
     socket.on('logo', function(data) {

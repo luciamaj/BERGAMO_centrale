@@ -173,7 +173,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
 
         if (this.firstMovement == false) {
           this.firstMovement = true;
-          socket.emit('first-movement', { socketId: this.socketId });
+          socket.emit('first_movement', { socketId: this.socketId });
         }
 
         // pause timer
