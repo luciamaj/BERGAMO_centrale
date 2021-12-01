@@ -87,6 +87,8 @@ function Omino(name, color, x, y, idleTime) {
   this.idleTime = idleTime;
   this.showMe = false;
 
+  this.firstMovement = false;
+
   this.idle = null;
   this.walking = null;
   this.flagging = null;
@@ -135,7 +137,6 @@ function Omino(name, color, x, y, idleTime) {
   
   this.update = function(positions) {
     if (this.showMe == true) {
-      //TODO: mettere a posto camminata
 
       // this.y -= 1;
       if (!this.omino.visible) this.omino.visible = true;
@@ -151,58 +152,63 @@ function Omino(name, color, x, y, idleTime) {
 
     this.positions = positions;
 
-      if (positions.x != 0 || positions.y != 0) {
-        // omino started
-        if (this.isMoving != true && !this.isReading && this.isOnMap) {
-          console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
-          this.omino.changeAnimation('walking');
-          this.omino.animation.play();
-          this.isMoving = true;
+    if (positions.x != 0 || positions.y != 0) {
+      // omino started
+      if (this.isMoving != true && !this.isReading && this.isOnMap) {
+        console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
+        this.omino.changeAnimation('walking');
+        this.omino.animation.play();
+        this.isMoving = true;
 
-          // pause timer
-          if(this.isOnMap) {
-            this.timerResetted = false;
-            this.stopTimer();
-          }
-
-          // rotazione nel verso della camminata
-          if (positions.x == 0) {
-            if (positions.y < 0) {
-              this.omino.rotation = 0;
-            } else {
-              this.omino.rotation = 180;
-            }            
-          } else if (positions.y == 0) {
-            if (positions.x < 0) {
-              this.omino.rotation = -90;
-            } else {
-              this.omino.rotation = 90;
-            }  
-          }
+        if (this.firstMovement == false) {
+          this.firstMovement = true;
+          socket.emit('first-movement', { socketId: this.socketId });
         }
-      } else {
-        // omino stopped
-        if (this.isMoving != false) {
-          if (this.isMoving != false) this.isMoving = false;
 
-          this.omino.animation.stop();
+        // pause timer
+        if(this.isOnMap) {
+          this.timerResetted = false;
+          this.stopTimer();
+        }
 
-          // go to idle animation
-          if (this.omino.animation.getFrame() == 1) {
-             this.omino.animation.nextFrame();
-          } else if (this.omino.animation.getFrame() == 3) {
-             this.omino.animation.nextFrame();
-          }
-          
-          if (this.omino.getAnimationLabel() != "flagging") {
-            this.omino.changeAnimation('idle');
-            this.omino.animation.playing = false;
-          }
-
-          // restart timer
-          if(this.isOnMap) this.startTimer();
+        // rotazione nel verso della camminata
+        if (positions.x == 0) {
+          if (positions.y < 0) {
+            this.omino.rotation = 0;
+          } else {
+            this.omino.rotation = 180;
+          }            
+        } else if (positions.y == 0) {
+          if (positions.x < 0) {
+            this.omino.rotation = -90;
+          } else {
+            this.omino.rotation = 90;
+          }  
         }
       }
+    } else {
+      // omino stopped
+      if (this.isMoving != false) {
+        if (this.isMoving != false) this.isMoving = false;
+
+        this.omino.animation.stop();
+
+        // go to idle animation
+        if (this.omino.animation.getFrame() == 1) {
+            this.omino.animation.nextFrame();
+        } else if (this.omino.animation.getFrame() == 3) {
+            this.omino.animation.nextFrame();
+        }
+        
+        if (this.omino.getAnimationLabel() != "flagging") {
+          this.omino.changeAnimation('idle');
+          this.omino.animation.playing = false;
+        }
+
+        // restart timer
+        if(this.isOnMap) this.startTimer();
+      }
+    }
 
     // move omino sprite on map (non se sto leggendo (non solo sono dentro l'hotpoint, ma sono sulla scheda per la lettura))
     if (!this.isReading && this.isOnMap) {
@@ -273,6 +279,7 @@ function Omino(name, color, x, y, idleTime) {
     this.omino.rotation = 0;
     this.x = x;
     this.y = y;
+    this.firstMovement = false;
   }
 }
 

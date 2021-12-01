@@ -360,3 +360,5 @@
 4/11/2021, 15:30:54 sono inside
 4/11/2021, 15:30:55 sono inside
 4/11/2021, 15:31:02 sono inside
+1/12/2021, 10:13:48 central is off
+1/12/2021, 10:14:01 sono inside

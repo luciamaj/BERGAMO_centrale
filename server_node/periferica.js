@@ -215,20 +215,27 @@ io.on('connection', function (socket) {
         const { socketId, url } = data;
         let socketPeriferica = periferiche.find(s => s.id === socketId);
         if (socketPeriferica) {socketPeriferica.emit('url-dashboard', url)};
-    })
+    });
 
     socket.on('reset', function (data) {
         console.log('send reset');
         const { socketId } = data;
         let socketPeriferica = periferiche.find(s => s.id === socketId);
         if (socketPeriferica) {socketPeriferica.emit('reset')};
-    })
+    });
 
     socket.on('exited', function (data) {
         const { socketId } = data;
         let socketPeriferica = periferiche.find(s => s.id === socketId);
         if (socketPeriferica) {socketPeriferica.emit('exit-dashboard')};
-    })
+    });
+
+    socket.on('first-movement', function (data) {
+        console.log('first-movement', data);
+        const { socketId } = data;
+        let socketPeriferica = periferiche.find(s => s.id === socketId);
+        if (socketPeriferica) {socketPeriferica.emit('first-movement')};
+    });
 
     socket.on('logo', function(data) {
         console.log(data);
