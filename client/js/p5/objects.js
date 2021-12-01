@@ -71,7 +71,7 @@ function Hotpoint(jsonObj) {
   }
 }
 
-function Omino(name, color, x, y, idleTime) {
+function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.radius = 18;
   this.name = name;
   this.socketId = '';
@@ -85,6 +85,7 @@ function Omino(name, color, x, y, idleTime) {
   this.isReading = false;
   this.isOnMap = configuration.isDebug ? true : false;
   this.idleTime = idleTime;
+  this.idleTimeReading = idleTimeReading;
   this.showMe = false;
 
   this.firstMovement = false;
@@ -154,7 +155,8 @@ function Omino(name, color, x, y, idleTime) {
 
     if (positions.x != 0 || positions.y != 0) {
       // omino started
-      if (this.isMoving != true && !this.isReading && this.isOnMap) {
+      // if (this.isMoving != true && !this.isReading && this.isOnMap) {
+      if (this.isMoving != true && this.isOnMap) {
         console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
         this.omino.changeAnimation('walking');
         this.omino.animation.play();
