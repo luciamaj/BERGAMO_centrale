@@ -103,11 +103,18 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
 
   console.log("idletime", this.idleTime );
   this.timer = new easytimer.Timer({target: { seconds: this.idleTime }});
+  this.timerReading = new easytimer.Timer({target: { seconds: this.idleTimeReading }});
   
   this.timer.addEventListener('targetAchieved', e => {
     console.log("timer ended");
     this.reloaded();
-    this.resetPositions();
+    if (!this.isReading) this.resetPositions();
+  });
+
+  this.timerReading.addEventListener('targetAchieved', e => {
+    console.log("timer ended");
+    this.reloaded();
+    if (this.isReading) this.resetPositions();
   });
 
   // SPRITE //
@@ -155,6 +162,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
 
     if (positions.x != 0 || positions.y != 0) {
       // omino started
+      // TODO: da controllare
       // if (this.isMoving != true && !this.isReading && this.isOnMap) {
       if (this.isMoving != true && this.isOnMap) {
         console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
@@ -212,6 +220,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
       }
     }
 
+    // TODO: da controllare
     // move omino sprite on map (non se sto leggendo (non solo sono dentro l'hotpoint, ma sono sulla scheda per la lettura))
     if (!this.isReading && this.isOnMap) {
       if ((positions.x > this.tresh || positions.x < -this.tresh) ||  (positions.y > this.tresh || positions.y < -this.tresh)) {
