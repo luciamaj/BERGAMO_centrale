@@ -163,7 +163,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
 
     if (positions.x != 0 || positions.y != 0) {
       // omino started
-      // TODO: da controllare
+      // NOTE: posso uscire dalla scheda anche con il joystick
       // if (this.isMoving != true && !this.isReading && this.isOnMap) {
       if (this.isMoving != true && this.isOnMap) {
         console.log(this.name, "started moving", this.isMoving, this.isReading, this.isOnMap);
@@ -223,7 +223,9 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
 
     // TODO: da controllare
     // move omino sprite on map (non se sto leggendo (non solo sono dentro l'hotpoint, ma sono sulla scheda per la lettura))
-    if (!this.isReading && this.isOnMap) {
+    // NOTE: posso uscire dalla scheda anche con il joystick
+    //  if (this.isOnMap && !this.isReading) {
+    if (this.isOnMap) {
       if ((positions.x > this.tresh || positions.x < -this.tresh) ||  (positions.y > this.tresh || positions.y < -this.tresh)) {
         // if inside hotpoint go slow
         if(isInside(this)) {
