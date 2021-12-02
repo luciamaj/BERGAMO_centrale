@@ -108,3 +108,8 @@ function updateTimer(data) {
 		playerToChange.startTimer();
 	}
 }
+
+if (performance.getEntriesByType("navigation")[0].type.toString() === "reload") {
+    console.log(socket);
+    socket.emit('refresh');
+}

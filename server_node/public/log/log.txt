@@ -378,3 +378,60 @@
 2/12/2021, 15:33:54 sono inside
 2/12/2021, 15:33:55 sono inside
 2/12/2021, 15:35:02 sono inside
+2/12/2021, 15:43:22 central is off
+2/12/2021, 15:44:43 central is off
+2/12/2021, 15:44:56 central is off
+2/12/2021, 15:45:08 central is off
+2/12/2021, 15:45:58 central is off
+2/12/2021, 15:47:15 sono inside
+2/12/2021, 15:47:19 central is off
+2/12/2021, 15:49:10 sono inside
+2/12/2021, 15:49:15 sono inside
+2/12/2021, 15:59:44 sono inside
+2/12/2021, 16:00:19 sono inside
+2/12/2021, 16:00:41 sono inside
+2/12/2021, 16:01:57 sono inside
+2/12/2021, 16:02:05 sono inside
+2/12/2021, 16:03:17 sono inside
+2/12/2021, 16:03:54 sono inside
+2/12/2021, 16:03:56 sono inside
+2/12/2021, 16:09:16 sono inside
+2/12/2021, 16:09:18 sono inside
+2/12/2021, 16:12:11 sono inside
+2/12/2021, 16:12:32 sono inside
+2/12/2021, 16:13:18 sono inside
+2/12/2021, 16:16:18 sono inside
+2/12/2021, 16:17:25 sono inside
+2/12/2021, 16:18:19 sono inside
+2/12/2021, 16:19:03 sono inside
+2/12/2021, 16:19:42 sono inside
+2/12/2021, 16:20:31 sono inside
+2/12/2021, 16:38:03 sono inside
+2/12/2021, 16:38:04 sono inside
+2/12/2021, 16:38:17 sono inside
+2/12/2021, 16:39:22 sono inside
+2/12/2021, 16:40:05 sono inside
+2/12/2021, 16:40:09 sono inside
+2/12/2021, 16:40:40 sono inside
+2/12/2021, 16:41:01 sono inside
+2/12/2021, 16:41:12 sono inside
+2/12/2021, 16:41:22 sono inside
+2/12/2021, 16:41:32 sono inside
+2/12/2021, 16:52:32 sono inside
+2/12/2021, 16:52:40 sono inside
+2/12/2021, 16:52:41 sono inside
+2/12/2021, 16:52:42 sono inside
+2/12/2021, 16:52:45 central is off
+2/12/2021, 16:52:46 sono inside
+2/12/2021, 16:52:47 sono inside
+2/12/2021, 16:52:48 sono inside
+2/12/2021, 16:53:08 sono inside
+2/12/2021, 16:53:27 central is off
+2/12/2021, 16:54:09 sono inside
+2/12/2021, 16:54:11 sono inside
+2/12/2021, 16:54:22 sono inside
+2/12/2021, 16:54:26 central is off
+2/12/2021, 16:54:28 sono inside
+2/12/2021, 16:54:58 sono inside
+2/12/2021, 16:55:06 sono inside
+2/12/2021, 16:55:16 central is off

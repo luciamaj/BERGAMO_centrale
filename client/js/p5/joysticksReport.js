@@ -1,4 +1,3 @@
-// var joysticks = {"azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 160, baseY: 1651}, "blue": {x: 0, y: 0, color:[73, 182, 117], baseX: 354, baseY: 1783}, "green": {x: 0, y: 0, color: [76, 235, 52], baseX: 504, baseY: 1840}, "orange": {x: 0, y: 0, color: [231, 24, 55], baseX: 1154, baseY: 1789}, "red": {x: 0, y: 0, color: [231, 24, 55], baseX: 1423, baseY: 1650}, "purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 1484, baseY: 1574}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1574, baseY: 1494}}
 var joysticks = {"purple": {x: 0, y: 0, color: [231, 24, 55], baseX: 160, baseY: 1651}, "red": {x: 0, y: 0, color:[73, 182, 117], baseX: 354, baseY: 1783}, "orange": {x: 0, y: 0, color: [76, 235, 52], baseX: 504, baseY: 1840}, "yellow": {x: 0, y: 0, color: [231, 24, 55], baseX: 1154, baseY: 1789}, "green": {x: 0, y: 0, color: [231, 24, 55], baseX: 1423, baseY: 1650}, "blue": {x: 0, y: 0, color: [231, 24, 55], baseX: 1484, baseY: 1574}, "azure": {x: 0, y: 0, color: [231, 24, 55], baseX: 1574, baseY: 1494}}
 
 
@@ -162,7 +161,9 @@ if (configuration.isDebug) {
       let gamepad2;
       // First arduino
 
-      if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
+      // TODO: DA CAMBIARE
+      //if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
+      if(navigator.getGamepads()[0] != null) {
         if(navigator.getGamepads()[0].buttons.find(btn => btn.pressed === true)) {
           gamepad1 = navigator.getGamepads()[1];
           gamepad2 = navigator.getGamepads()[0];

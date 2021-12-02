@@ -68,8 +68,6 @@ function setup() {
 function draw() { 
     clear();
     
-    //image(videoNuvole, 0, 120, squareDim, squareDim);
-
     if(mouseX != oldposX && mouseY != oldposY) {
         oldposX = mouseX;
         oldposY = mouseY;
@@ -128,12 +126,12 @@ function draw() {
     }
 
     beginShape();
+    noStroke();
     for (const { x, y } of poly)  vertex(x, y);
     endShape(CLOSE);
 
     drawSprites();
     noFill();
-	noStroke();
 }
 
 // ENTRY METHODS

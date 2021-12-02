@@ -258,7 +258,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   }
 
   this.draw = function() {
-    drawOmino(this.omino, this.x, this.y, this.positions.x, this.positions.y, this.treshFlip);
+    drawOmino(this.isOnMap, this.omino, this.x, this.y, this.positions.x, this.positions.y, this.treshFlip);
   }
 
   this.resetTimer = function() {
@@ -282,10 +282,9 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   }
 
   this.resetPositions = () => {
-    this.omino.visible = false;
     this.omino.changeAnimation('idle');
     this.timerResetted = false;
-    this.isOnMap = false;
+    this.isOnMap = true;
     this.isMoving = false;
     this.isReading = false;
     this.omino.rotation = 0;
@@ -314,7 +313,7 @@ function drawPlayer(omino, posX, posY) {
   }
 }
 
-function drawOmino(omino, posX, posY, oldX, oldY, treshFlip) {
+function drawOmino(isOnMap, omino, posX, posY, oldX, oldY, treshFlip) {
   playersGroup.add(omino);
 
   let oldPosX = omino.position.x;
@@ -331,7 +330,9 @@ function drawOmino(omino, posX, posY, oldX, oldY, treshFlip) {
   if ((oldX >= 0 && oldX <= treshFlip) || (oldX <= 0 && oldX >= -treshFlip) && (oldY >= 0 && oldY <= treshFlip) || (oldY < 0 && oldY >= -treshFlip)) {
     //
   } else {
-    omino.rotation = (deg) + 90;
+    if (isOnMap) {
+      omino.rotation = (deg) + 90;
+    }
   }
 
   if(playersGroup) {

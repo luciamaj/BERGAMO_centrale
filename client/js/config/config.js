@@ -3,7 +3,7 @@ const configuration = {
     "idleTimeReading": 6000, // seconds
     "isDebug": false,
     "velocity": 1.5,  // valore da 1 a 3, usare anche i decimalI
-    "points": true,
+    "points": false,
     "luce": true,
     "serverUrl": "localhost:4000"
 }

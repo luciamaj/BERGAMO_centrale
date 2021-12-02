@@ -189,9 +189,9 @@ io.on('connection', function (socket) {
     });
 
     socket.on('joystick', function (data) {
-        if (data != dataJoystick) {
+        if (JSON.stringify(data) != JSON.stringify(dataJoystick)) {
             dataJoystick = data;
-            console.log(data);
+            console.log(data, dataJoystick);
         }
     });
 
@@ -206,6 +206,13 @@ io.on('connection', function (socket) {
         canvas = socket;
         canvas.emit('canvas-onload', canvasData)
         updateCanvas();
+    });
+
+    socket.on('refresh', function () {
+        console.log('refresh');
+        for (const peri of periferiche) {
+            peri.emit('reset')
+        }
     });
 
     socket.on('data', function (data) {
