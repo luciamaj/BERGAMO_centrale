@@ -25,6 +25,7 @@ let periferiche = [];
 let names = [];
 let canvas = undefined;
 let canvasData = undefined;
+let dataJoystick = undefined;
 
 // EXPRESS
 
@@ -188,7 +189,10 @@ io.on('connection', function (socket) {
     });
 
     socket.on('joystick', function (data) {
-        console.log(data);
+        if (data != dataJoystick) {
+            dataJoystick = data;
+            console.log(data);
+        }
     });
 
     socket.on('canvas', function () {

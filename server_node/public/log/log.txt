@@ -362,3 +362,19 @@
 4/11/2021, 15:31:02 sono inside
 1/12/2021, 10:13:48 central is off
 1/12/2021, 10:14:01 sono inside
+2/12/2021, 09:44:34 sono inside
+2/12/2021, 09:51:28 sono inside
+2/12/2021, 09:52:19 sono inside
+2/12/2021, 09:55:04 sono inside
+2/12/2021, 09:55:21 central is off
+2/12/2021, 09:55:31 sono inside
+2/12/2021, 09:55:36 sono inside
+2/12/2021, 13:10:28 central is off
+2/12/2021, 14:44:34 sono inside
+2/12/2021, 14:44:35 sono inside
+2/12/2021, 14:44:52 sono inside
+2/12/2021, 14:44:55 sono inside
+2/12/2021, 15:16:53 sono inside
+2/12/2021, 15:33:54 sono inside
+2/12/2021, 15:33:55 sono inside
+2/12/2021, 15:35:02 sono inside

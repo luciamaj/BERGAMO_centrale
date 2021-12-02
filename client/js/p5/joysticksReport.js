@@ -198,8 +198,6 @@ if (configuration.isDebug) {
         joysticks['orange'].y = - applyDeadzone(gamepad2.axes[5], treshJoystick);
       }
 	  
-	  console.log("gamepads", navigator.getGamepads());
-
       if(gamepad1 == null || gamepad2 == null) {
         sendedError = true;
         let report1 = gamepad1 ? true : false;

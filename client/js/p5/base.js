@@ -78,10 +78,8 @@ function draw() {
     oldStations = newStations;
     newStations = [];
 
-    if(isDebug == true) {
-        if (playersOnCanvas.length == 0) {
-            playersOnCanvas = playersArray;
-        }
+    if (playersOnCanvas.length == 0) {
+        playersOnCanvas = playersArray;
     }
 
     for(let player of playersOnCanvas) {
