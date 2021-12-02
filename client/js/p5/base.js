@@ -41,7 +41,7 @@ function setup() {
     });
 
     Object.keys(joysticks).forEach(function(name) {
-        let player = new Omino(name, color(...joysticks[name].color), joysticks[name].baseX, joysticks[name].baseY, configuration.idleTime);
+        let player = new Omino(name, color(...joysticks[name].color), joysticks[name].baseX, joysticks[name].baseY, configuration.idleTime, configuration.idleTimeReading);
         playersArray.push(player);
     });
 	

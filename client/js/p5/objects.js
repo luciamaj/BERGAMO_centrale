@@ -81,6 +81,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.color = color;
   this.isMoving = false;
   this.timerResetted = false;
+  this.timerResettedReading = false;
   this.positions = null;
   this.isReading = false;
   this.isOnMap = configuration.isDebug ? true : false;
@@ -102,19 +103,23 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   // TIMER //
 
   console.log("idletime", this.idleTime );
+  console.log("idletimeReading", this.idleTimeReading );
   this.timer = new easytimer.Timer({target: { seconds: this.idleTime }});
   this.timerReading = new easytimer.Timer({target: { seconds: this.idleTimeReading }});
+
+  console.log(this.timerReading);
   
   this.timer.addEventListener('targetAchieved', e => {
-    console.log("timer ended");
-    this.reloaded();
-    if (!this.isReading) this.resetPositions();
+    console.log("timer ended", this.name);
+      this.reloaded();
+      this.resetPositions();
   });
 
   this.timerReading.addEventListener('targetAchieved', e => {
-    console.log("timer ended");
-    this.reloaded();
-    if (this.isReading) this.resetPositions();
+    if (this.isReading) {
+      this.reloaded();
+      this.resetPositions();
+    }
   });
 
   // SPRITE //
@@ -179,6 +184,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
         // pause timer
         if(this.isOnMap) {
           this.timerResetted = false;
+          this.timerResettedReading = false;
           this.stopTimer();
         }
 
@@ -271,11 +277,15 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
     console.log('timer resettato');
     this.timer.reset();
     this.timer.start();
+
+    this.timerReading.reset();
+    this.timerReading.start();
   }
 
   this.stopTimer = function() {
     console.log('timer stoppato');
     this.timer.stop();
+    this.timerReading.stop();
   }
 
   this.reloaded = () => {
@@ -286,7 +296,8 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.resetPositions = () => {
     this.omino.changeAnimation('idle');
     this.timerResetted = false;
-    this.isOnMap = true;
+    this.timerResettedReading = false;
+    this.isOnMap = false;
     this.isMoving = false;
     this.isReading = false;
     this.omino.rotation = 0;

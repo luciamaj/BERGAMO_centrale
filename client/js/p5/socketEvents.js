@@ -81,7 +81,6 @@ function playStartAnimation(data) {
         let playerToChange = playersArray[playerToChangeIndex];
 		playerToChange.showMe = true;
         playersArray[playerToChangeIndex] = playerToChange;
-		playerToChange.resetPositions();
 	}
 }
 
