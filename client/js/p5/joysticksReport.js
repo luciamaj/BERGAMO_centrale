@@ -161,9 +161,8 @@ if (configuration.isDebug) {
       let gamepad2;
       // First arduino
 
-      // TODO: DA CAMBIARE
-      //if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
-      if(navigator.getGamepads()[0] != null) {
+      if(navigator.getGamepads()[0] != null && navigator.getGamepads()[1] != null) {
+      //if(navigator.getGamepads()[0] != null) {
         if(navigator.getGamepads()[0].buttons.find(btn => btn.pressed === true)) {
           gamepad1 = navigator.getGamepads()[1];
           gamepad2 = navigator.getGamepads()[0];
