@@ -446,3 +446,39 @@
 2/12/2021, 17:32:01 sono inside
 2/12/2021, 17:34:04 sono inside
 2/12/2021, 17:35:17 sono inside
+2/12/2021, 18:10:42 sono inside
+9/12/2021, 10:22:27 central is off
+9/12/2021, 10:25:58 sono inside
+9/12/2021, 10:26:03 sono inside
+9/12/2021, 10:29:42 central is off
+9/12/2021, 10:34:01 sono inside
+9/12/2021, 10:34:24 sono inside
+9/12/2021, 10:34:36 sono inside
+9/12/2021, 10:34:57 sono inside
+9/12/2021, 10:35:45 sono inside
+9/12/2021, 10:35:46 sono inside
+9/12/2021, 10:36:05 sono inside
+9/12/2021, 10:36:28 sono inside
+9/12/2021, 10:36:33 sono inside
+9/12/2021, 10:37:53 sono inside
+9/12/2021, 10:38:00 sono inside
+9/12/2021, 10:38:22 sono inside
+9/12/2021, 10:43:25 central is off
+9/12/2021, 10:43:46 sono inside
+9/12/2021, 10:44:04 sono inside
+9/12/2021, 10:44:47 sono inside
+9/12/2021, 10:45:13 sono inside
+9/12/2021, 10:45:23 sono inside
+9/12/2021, 10:45:35 sono inside
+9/12/2021, 10:45:40 sono inside
+9/12/2021, 10:45:56 sono inside
+9/12/2021, 10:46:23 sono inside
+9/12/2021, 10:46:39 sono inside
+9/12/2021, 10:46:42 central is off
+9/12/2021, 10:49:06 sono inside
+9/12/2021, 10:49:31 sono inside
+9/12/2021, 10:49:33 sono inside
+9/12/2021, 10:50:12 sono inside
+9/12/2021, 10:50:15 sono inside
+9/12/2021, 10:50:54 sono inside
+9/12/2021, 10:51:06 sono inside

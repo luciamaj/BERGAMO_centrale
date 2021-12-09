@@ -3,8 +3,8 @@ let data;
 var playersOnCanvas = [];
 
 socket.on('dati-canvas', d => {
-    console.log("THE DATA", data);
     data = d;
+    console.log("THE DATA", data);
     socket.emit('data', data);
     console.log();
     update();

@@ -107,7 +107,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.timer = new easytimer.Timer({target: { seconds: this.idleTime }});
   this.timerReading = new easytimer.Timer({target: { seconds: this.idleTimeReading }});
 
-  console.log(this.timerReading);
+  console.log("this.timerReading", this.timerReading);
   
   this.timer.addEventListener('targetAchieved', e => {
     console.log("timer ended", this.name);
@@ -167,6 +167,12 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
     this.positions = positions;
 
     if (positions.x != 0 || positions.y != 0) {
+
+      if (this.firstMovement == false) {
+        this.firstMovement = true;
+        socket.emit('first_movement', { socketId: this.socketId });
+      }
+
       // omino started
       // NOTE: posso uscire dalla scheda anche con il joystick
       // if (this.isMoving != true && !this.isReading && this.isOnMap) {
@@ -175,11 +181,6 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
         this.omino.changeAnimation('walking');
         this.omino.animation.play();
         this.isMoving = true;
-
-        if (this.firstMovement == false) {
-          this.firstMovement = true;
-          socket.emit('first_movement', { socketId: this.socketId });
-        }
 
         // pause timer
         if(this.isOnMap) {
