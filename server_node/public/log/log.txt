@@ -482,3 +482,12 @@
 9/12/2021, 10:50:15 sono inside
 9/12/2021, 10:50:54 sono inside
 9/12/2021, 10:51:06 sono inside
+22/12/2021, 09:50:07 sono inside
+22/12/2021, 09:50:11 central is off
+22/12/2021, 10:55:33 sono inside
+22/12/2021, 10:55:46 central is off
+22/12/2021, 10:56:17 sono inside
+22/12/2021, 10:56:20 sono inside
+22/12/2021, 10:56:26 sono inside
+22/12/2021, 12:28:26 central is off
+22/12/2021, 12:28:28 sono inside

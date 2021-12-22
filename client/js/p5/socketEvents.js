@@ -110,5 +110,6 @@ function updateTimer(data) {
 
 if (performance.getEntriesByType("navigation")[0].type.toString() === "reload") {
     console.log(socket);
-    socket.emit('refresh');
+    // NOTE: send reset position to periferiche when page is refreshed. 
+    //socket.emit('refresh');
 }

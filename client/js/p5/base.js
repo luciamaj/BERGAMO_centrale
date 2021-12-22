@@ -1,6 +1,3 @@
-//  MARK: - TODO: c'è un problema a volte nell'ordine in cui vengono registrati i
-//  MARK: - TODO: fare l'emit dell'url sono una volta
-
 let sky;
 let bgVideo;
 var hotPointsArray = [];
@@ -174,7 +171,7 @@ function arrayRemove(arr, value) {
 function isInside(player) {
     let entry = newStations.find(entry => { return entry.player == player });
 
-    if(entry) {
+    if (entry) {
         return true
     } else {
         return false

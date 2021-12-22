@@ -116,10 +116,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   });
 
   this.timerReading.addEventListener('targetAchieved', e => {
-    if (this.isReading) {
-      this.reloaded();
-      this.resetPositions();
-    }
+    console.log("idle time reading");
   });
 
   // SPRITE //
@@ -127,7 +124,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   this.omino = createSprite(50, 50, 10, 10);
   this.omino.setCollider("circle", 0, 0, 6);
   this.omino.debug = false;
-  this.omino.visible = true;
+  this.omino.visible = false;
 
   this.omino.depth = 2;
 
@@ -150,7 +147,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
   
   this.update = function(positions) {
     // NOTE: animazioni iniziali
-    /*if (this.showMe == true) {
+    if (this.showMe == true) {
 
       // this.y -= 1;
       if (!this.omino.visible) this.omino.visible = true;
@@ -162,7 +159,7 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
       // }
 
       return;
-    }*/
+    }
 
     this.positions = positions;
 
@@ -302,9 +299,10 @@ function Omino(name, color, x, y, idleTime, idleTimeReading) {
     this.isMoving = false;
     this.isReading = false;
     this.omino.rotation = 0;
+    this.omino.visible = false;
+    this.firstMovement = false;
     this.x = x;
     this.y = y;
-    this.firstMovement = false;
   }
 }
 
